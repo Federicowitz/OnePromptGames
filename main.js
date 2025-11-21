@@ -36,7 +36,7 @@ function initThreeJS() {
     // 1. SCENA
     const scene = new THREE.Scene();
     // Nebbia nera per dare profondità
-    scene.fog = new THREE.FogExp2(0x000000, 0.05);
+    scene.fog = new THREE.FogExp2(0x000000, 0.15);
 
     const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
     // La camera è a distanza 10.
@@ -51,7 +51,7 @@ function initThreeJS() {
     // 2. GEOMETRIA (Sfera perfetta ad alta definizione)
     // SphereGeometry(raggio, segmentiX, segmentiY)
     // Raggio ridotto a 1.3 (molto più piccola). Segmenti 64 (liscia).
-    const geometry = new THREE.SphereGeometry(1.3, 64, 64);
+    const geometry = new THREE.SphereGeometry(0.5, 256, 256);
     
     // MATERIALE (Petrolio Nero)
     const material = new THREE.MeshStandardMaterial({
