@@ -6,8 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- 1. CARICAMENTO GIOCHI DA JSON --- */
 function loadGames() {
     const grid = document.getElementById('games-grid');
-    
-    // Aggiungiamo ?t=... per evitare che il telefono usi la versione vecchia del file
     const noCacheUrl = 'games.json?t=' + new Date().getTime();
 
     fetch(noCacheUrl)
@@ -16,21 +14,25 @@ function loadGames() {
             return response.json();
         })
         .then(games => {
-            grid.innerHTML = ''; // Pulisce loader o contenuti vecchi
+            grid.innerHTML = ''; 
             
             games.forEach(game => {
                 const card = document.createElement('article');
                 card.className = 'card';
                 
-                // Immagine: cerca img/gameID.jpg
-                const imgPath = `img/${game.id}.jpg`;
-                
+                // --- MODIFICA QUI ---
+                // Se nel JSON c'è scritto "format": "png", usa quello. 
+                // Altrimenti usa "jpg" di default.
+                const ext = game.format || 'jpg';
+                const imgPath = `img/${game.id}.${ext}`;
+                // --------------------
+
                 card.innerHTML = `
                     <div class="card-img-container">
                          <img src="${imgPath}" 
                               alt="${game.title}" 
                               class="card-img" 
-                              onerror="this.src='https://placehold.co/600x400/050505/00f3ff?text=NO+IMG'"> 
+                              onerror="this.onerror=null; this.src='https://placehold.co/600x400/050505/00f3ff?text=NO+IMG'"> 
                     </div>
                     <div class="card-content">
                         <h2 class="card-title">${game.title}</h2>
@@ -43,8 +45,7 @@ function loadGames() {
         })
         .catch(err => {
             console.error(err);
-            // Feedback visivo in caso di errore (utile su mobile)
-            grid.innerHTML = `<p style="color:red; text-align:center;">Errore caricamento database giochi.<br>Controlla games.json</p>`;
+            grid.innerHTML = `<p style="color:red; text-align:center;">Errore caricamento database giochi.</p>`;
         });
 }
 
