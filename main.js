@@ -51,7 +51,7 @@ function initThreeJS() {
     // 2. GEOMETRIA (Sfera perfetta ad alta definizione)
     // SphereGeometry(raggio, segmentiX, segmentiY)
     // Raggio ridotto a 1.3 (molto più piccola). Segmenti 64 (liscia).
-    const geometry = new THREE.SphereGeometry(1, 256, 256);
+    const geometry = new THREE.SphereGeometry(1, 128, 128);
     
     // MATERIALE (Petrolio Nero)
     const material = new THREE.MeshStandardMaterial({
