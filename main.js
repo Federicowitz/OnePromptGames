@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* --- 1. CARICAMENTO GIOCHI DA JSON --- */
+/* --- 1. CARICAMENTO GIOCHI DA JSON --- */
 function loadGames() {
     const grid = document.getElementById('games-grid');
     const noCacheUrl = 'games.json?t=' + new Date().getTime();
@@ -20,13 +21,11 @@ function loadGames() {
                 const card = document.createElement('article');
                 card.className = 'card';
                 
-                // --- MODIFICA QUI ---
-                // Se nel JSON c'è scritto "format": "png", usa quello. 
-                // Altrimenti usa "jpg" di default.
+                // Gestione estensione jpg/png
                 const ext = game.format || 'jpg';
                 const imgPath = `img/${game.id}.${ext}`;
-                // --------------------
 
+                // Abbiamo aggiunto target="_blank" nel link qui sotto
                 card.innerHTML = `
                     <div class="card-img-container">
                          <img src="${imgPath}" 
@@ -37,7 +36,7 @@ function loadGames() {
                     <div class="card-content">
                         <h2 class="card-title">${game.title}</h2>
                         <p class="card-desc">${game.description}</p>
-                        <a href="games/${game.id}.html" class="card-btn">INITIALIZE &rarr;</a>
+                        <a href="games/${game.id}.html" class="card-btn" target="_blank" rel="noopener noreferrer">INITIALIZE &rarr;</a>
                     </div>
                 `;
                 grid.appendChild(card);
